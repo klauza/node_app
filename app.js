@@ -12,18 +12,24 @@ const app = express();
 
 app.use(helmet());
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // app.use(cors({
 //   origin: 'http://localhost:3000',
 //   credentials: true
 // }));
 
 // view
-app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
+// app.engine('handlebars', exphbs());
+// app.set('view engine', 'handlebars');
 
 // static folders
 // __dirname = current directory
-app.use('/public', express.static(path.join(__dirname, 'public')));
+// app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // body-parser middleware
 // Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
@@ -100,6 +106,7 @@ main().catch(console.error);
 
 console.log(process.env.DB_PASS)
 
+app.use('/api', routes);
 
 if(process.env.NODE_ENV === 'production'){
   app.use( express.static( `${__dirname}/frontend/build` ) );
