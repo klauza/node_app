@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const nodemailer = require('nodemailer');
+const routes = require('./routes/api');
 // const cors = require('cors');
 
 const app = express();
